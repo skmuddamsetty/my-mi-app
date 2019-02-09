@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Platform, LoadingController } from '@ionic/angular';
+import { Platform, LoadingController, ModalController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 
@@ -12,26 +12,36 @@ export class LoginPage implements OnInit {
   constructor(
     private platform: Platform,
     public authService: AuthService,
-    public router: Router
+    public router: Router,
+    private modalCtrl: ModalController
   ) {}
 
   ngOnInit() {}
 
   onGoogleSignIn() {
+    this.closeModal();
     if (this.platform.is('cordova')) {
       this.authService
         .onNativeGoogleLogin()
         .then(res => {
-          this.router.navigate(['/home']);
+          if (this.router.url.includes('login')) {
+            this.router.navigate(['/home']);
+          }
         })
         .catch();
     } else {
       this.authService
         .onWebGoogleLogin()
         .then(res => {
-          this.router.navigate(['/home']);
+          if (this.router.url.includes('login')) {
+            this.router.navigate(['/home']);
+          }
         })
         .catch();
     }
+  }
+
+  closeModal() {
+    this.modalCtrl.dismiss();
   }
 }

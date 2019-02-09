@@ -7,16 +7,22 @@ import { Injectable } from '@angular/core';
 import { User } from './models/user.model';
 import { AngularFireAuth } from '@angular/fire/auth';
 import * as firebase from 'firebase';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  private _user: BehaviorSubject<{}> = new BehaviorSubject(new Object({}));
   constructor(
     private afAuth: AngularFireAuth,
     private afs: AngularFirestore,
     private googlePlus: GooglePlus
   ) {}
+
+  getCurrentUserObservable() {
+    return this._user.asObservable();
+  }
 
   emailSignUp(email: string, password: string, username: string) {
     return this.afAuth.auth
@@ -61,6 +67,7 @@ export class AuthService {
       .signInWithPopup(provider)
       .then(user => {
         const userObj = user as any;
+        this._user.next(userObj);
         return this.setUserDoc(userObj.user, userObj.user.displayName); // create initial user document
       })
       .catch(error => console.log(error));
@@ -73,7 +80,7 @@ export class AuthService {
     // try {
     const gPlusUser = await this.googlePlus.login({
       webClientId:
-        '168875731860-etmqbh7rg8cuvje4b6nvipneirj02apl.apps.googleusercontent.com',
+        '110606421758-06mj39gpqlp1re1v1k1uq7mc72c1opfn.apps.googleusercontent.com',
       offline: true
     });
     return await this.afAuth.auth
@@ -82,6 +89,7 @@ export class AuthService {
       )
       .then(user => {
         const userObj = user as any;
+        this._user.next(userObj);
         return this.setUserDoc(user, user.displayName); // create initial user document
       })
       .catch(error => console.log(error));
