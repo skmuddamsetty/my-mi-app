@@ -11,7 +11,11 @@
 
 <ion-content padding>
   <div class="login">
-    <button mat-button class="loginBtn loginBtn--google">
+    <button
+      mat-button
+      class="loginBtn loginBtn--google"
+      (click)="onGoogleSignIn()"
+    >
       Login with Google
     </button>
   </div>

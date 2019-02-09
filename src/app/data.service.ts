@@ -7,15 +7,17 @@ import { QA } from './models/qa.model';
 })
 export class DataService {
   private _qa = new BehaviorSubject([]);
-  private _currentCategory: BehaviorSubject<{}> = new BehaviorSubject(new Object({}));
-  constructor() { }
+  private _currentCategory: BehaviorSubject<{}> = new BehaviorSubject(
+    new Object({})
+  );
+  constructor() {}
 
   getCurrentCategory() {
     return this._currentCategory.asObservable();
   }
 
   setCurrentCategory(category: string, title: string) {
-    let tempCategory = {
+    const tempCategory = {
       category: category,
       title: title
     };

@@ -25,6 +25,8 @@ import { environment } from 'src/environments/environment';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireModule } from '@angular/fire';
 import { LoginPageModule } from './login/login.module';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { GooglePlus } from '@ionic-native/google-plus/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -36,6 +38,7 @@ import { LoginPageModule } from './login/login.module';
     BrowserAnimationsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
+    AngularFireAuthModule,
     MatTabsModule,
     MatInputModule,
     MatFormFieldModule,
@@ -55,7 +58,8 @@ import { LoginPageModule } from './login/login.module';
   providers: [
     StatusBar,
     SplashScreen,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    GooglePlus
   ],
   bootstrap: [AppComponent]
 })
