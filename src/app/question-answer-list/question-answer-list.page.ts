@@ -9,6 +9,7 @@ import { QA, QAId } from '../models/qa.model';
 import { map } from 'rxjs/operators';
 import { LoginPage } from '../login/login.page';
 import { ModalController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-question-answer-list',
@@ -30,7 +31,8 @@ export class QuestionAnswerListPage implements OnInit, OnDestroy {
   constructor(
     public dataService: DataService,
     private readonly afs: AngularFirestore,
-    private modalCtrl: ModalController
+    private modalCtrl: ModalController,
+    public router: Router
   ) {}
 
   ngOnInit() {
@@ -40,6 +42,10 @@ export class QuestionAnswerListPage implements OnInit, OnDestroy {
         this.isLoading = true;
         this.currentCategory = currentCategory;
         this._qa = this.dataService.getQAObservable();
+        if (!this.currentCategory.category) {
+          this.router.navigate(['/home']);
+          return;
+        }
         if (this.currentCategory.category) {
           this._qaCollection = this.afs.collection<QA>('qa', ref => {
             return ref.where(

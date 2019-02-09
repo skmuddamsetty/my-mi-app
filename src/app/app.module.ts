@@ -27,6 +27,7 @@ import { AngularFireModule } from '@angular/fire';
 import { LoginPageModule } from './login/login.module';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
+import { IonicStorageModule } from '@ionic/storage';
 
 @NgModule({
   declarations: [AppComponent],
@@ -53,7 +54,8 @@ import { GooglePlus } from '@ionic-native/google-plus/ngx';
     MatButtonToggleModule,
     MatTabsModule,
     MatIconModule,
-    LoginPageModule
+    LoginPageModule,
+    IonicStorageModule.forRoot()
   ],
   providers: [
     StatusBar,
