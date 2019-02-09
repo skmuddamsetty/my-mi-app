@@ -1,0 +1,15 @@
+mat-expansion-panel {
+  mat-expanded {
+    mat-panel-title {
+      font-weight: bold;
+    }
+  }
+    margin-top: 1rem;
+    mat-panel-title {
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+    }
+    mat-expansion-panel-header {
+      height: auto!important;
+    }
+  }

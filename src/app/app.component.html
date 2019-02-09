@@ -1,0 +1,25 @@
+<ion-app>
+  <ion-split-pane>
+    <ion-menu>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title text-center>Menu</ion-title>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content>
+        <ion-list>
+          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
+            <ion-item *ngIf="p.isAvailable" [routerDirection]="'root'" [routerLink]="[p.url]" (click)="setCurrentCategory(p.category,p.title)">
+              <ion-icon slot="start" [name]="p.icon"></ion-icon>
+              <ion-label>
+                {{p.title}}
+              </ion-label>
+              <ion-badge color="light" slot="end" *ngIf="p.numberofQuestions && p.numberofQuestions>0">{{p.numberofQuestions}}</ion-badge>
+            </ion-item>
+          </ion-menu-toggle>
+        </ion-list>
+      </ion-content>
+    </ion-menu>
+    <ion-router-outlet main></ion-router-outlet>
+  </ion-split-pane>
+</ion-app>

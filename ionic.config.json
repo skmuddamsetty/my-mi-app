@@ -1,0 +1,7 @@
+{
+  "name": "myriad-interview-questions",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}
