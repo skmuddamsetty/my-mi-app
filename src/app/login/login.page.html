@@ -11,12 +11,22 @@
 
 <ion-content padding>
   <div class="login">
-    <button
-      mat-button
-      class="loginBtn loginBtn--google"
-      (click)="onGoogleSignIn()"
-    >
-      Login with Google
-    </button>
+    <h1 text-center>Welcome back.</h1>
+    <p text-center>
+      Sign in to save topics you love.
+    </p>
+    <div text-center>
+      <button
+        mat-button
+        class="loginBtn loginBtn--google"
+        (click)="onGoogleSignIn()"
+      >
+        Login with Google
+      </button>
+    </div>
+    <p text-center>
+      To make Myriad work, we log user data and share it with service providers.
+      Click “Login” above to accept Myriad’s Terms of Service & Privacy Policy.
+    </p>
   </div>
 </ion-content>
