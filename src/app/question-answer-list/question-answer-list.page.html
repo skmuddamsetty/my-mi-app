@@ -4,29 +4,40 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title text-center>
-      {{this.currentCategory.title}} Interview Questions
+      {{ this.currentCategory.title }} Interview Questions
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-  <mat-accordion multi="true" class="example-headers-align" *ngFor="let item of (_qa | async)">
-    <mat-expansion-panel>
-      <mat-expansion-panel-header collapsedHeight="*" expandedHeight="*" class="specific-class">
-        <mat-panel-title>
-          {{item.question}}
-        </mat-panel-title>
-      </mat-expansion-panel-header>
+  <mat-spinner *ngIf="this.isLoading" style="margin:0 auto;"></mat-spinner>
+  <div *ngIf="!this.isLoading">
+    <mat-accordion
+      multi="true"
+      class="example-headers-align"
+      *ngFor="let item of (_qa | async)"
+    >
+      <mat-expansion-panel>
+        <mat-expansion-panel-header
+          collapsedHeight="*"
+          expandedHeight="*"
+          class="specific-class"
+        >
+          <mat-panel-title>
+            {{ item.question }}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
 
-      <div [innerHtml]="item.formattedAnswer" class="test"></div>
-      <mat-action-row>
-        <button mat-button>
-          <mat-icon>share</mat-icon>
-        </button>
-        <button mat-button>
-          <mat-icon>star_border</mat-icon>
-        </button>
-      </mat-action-row>
-    </mat-expansion-panel>
-  </mat-accordion>
+        <div [innerHtml]="item.formattedAnswer" class="test"></div>
+        <mat-action-row>
+          <button mat-button>
+            <mat-icon>share</mat-icon>
+          </button>
+          <button mat-button (click)="onFavorite(item.id)">
+            <mat-icon>star_border</mat-icon>
+          </button>
+        </mat-action-row>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
 </ion-content>

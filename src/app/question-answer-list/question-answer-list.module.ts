@@ -6,7 +6,14 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { QuestionAnswerListPage } from './question-answer-list.page';
-import { MatIconModule, MatButtonToggleModule, MatButtonModule, MatExpansionModule, MatToolbarModule } from '@angular/material';
+import {
+  MatIconModule,
+  MatButtonToggleModule,
+  MatButtonModule,
+  MatExpansionModule,
+  MatToolbarModule,
+  MatProgressSpinnerModule
+} from '@angular/material';
 
 const routes: Routes = [
   {
@@ -25,8 +32,9 @@ const routes: Routes = [
     MatExpansionModule,
     MatButtonModule,
     MatButtonToggleModule,
-    MatIconModule
+    MatIconModule,
+    MatProgressSpinnerModule
   ],
   declarations: [QuestionAnswerListPage]
 })
-export class QuestionAnswerListPageModule { }
+export class QuestionAnswerListPageModule {}

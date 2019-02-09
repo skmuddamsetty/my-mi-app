@@ -9,11 +9,22 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatToolbarModule, MatDatepickerModule, MatFormFieldModule, MatNativeDateModule, MatInputModule, MatButtonModule, MatButtonToggleModule, MatTabsModule, MatIconModule } from '@angular/material';
+import {
+  MatToolbarModule,
+  MatDatepickerModule,
+  MatFormFieldModule,
+  MatNativeDateModule,
+  MatInputModule,
+  MatButtonModule,
+  MatButtonToggleModule,
+  MatTabsModule,
+  MatIconModule
+} from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireModule } from '@angular/fire';
+import { LoginPageModule } from './login/login.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -38,7 +49,8 @@ import { AngularFireModule } from '@angular/fire';
     MatButtonModule,
     MatButtonToggleModule,
     MatTabsModule,
-    MatIconModule
+    MatIconModule,
+    LoginPageModule
   ],
   providers: [
     StatusBar,
@@ -47,4 +59,4 @@ import { AngularFireModule } from '@angular/fire';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

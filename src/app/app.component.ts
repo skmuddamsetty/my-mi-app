@@ -13,7 +13,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 })
 export class AppComponent {
   public appPages = [];
-  //FIREBASE RELATED VARIABLES
+  // FIREBASE RELATED VARIABLES
   _sideNavSubscription: Subscription;
 
   constructor(
@@ -39,13 +39,30 @@ export class AppComponent {
   }
 
   setAvailableItemsForSideNav() {
-    this._sideNavSubscription = this.afs.collection('sidenavitems').valueChanges().subscribe((sideNavItems: any) => {
-      if (sideNavItems && sideNavItems[0] && sideNavItems[0].items && sideNavItems[0].items.length > 0) {
-        sideNavItems[0].items.forEach(element => {
-          this.appPages.push(element);
-        });
-      }
-      this._sideNavSubscription.unsubscribe();
-    });
+    this._sideNavSubscription = this.afs
+      .collection('sidenavitems')
+      .valueChanges()
+      .subscribe((sideNavItems: any) => {
+        if (
+          sideNavItems &&
+          sideNavItems[0] &&
+          sideNavItems[0].items &&
+          sideNavItems[0].items.length > 0
+        ) {
+          sideNavItems[0].items.forEach(element => {
+            this.appPages.push(element);
+          });
+        }
+        this._sideNavSubscription.unsubscribe();
+        this.appPages.push([
+          {
+            isAvailable: true,
+            title: 'Home',
+            url: '/home',
+            icon: 'home',
+            category: 'home'
+          }
+        ]);
+      });
   }
 }
