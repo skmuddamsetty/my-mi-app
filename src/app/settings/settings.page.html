@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Settings
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list lines="inset">
+    <ion-item (click)="onItemClick('theme-selector')">
+      <ion-icon slot="start" color="medium" name="color-fill"></ion-icon>
+      <ion-label>Theme Your App</ion-label>
+      <ion-icon slot="end" color="medium" name="arrow-forward"></ion-icon>
+    </ion-item>
+    <ion-item>
+      <ion-icon slot="start" color="medium" name="person"></ion-icon>
+      <ion-label>Profile</ion-label>
+      <ion-icon slot="end" color="medium" name="arrow-forward"></ion-icon>
+    </ion-item>
+  </ion-list>
+</ion-content>

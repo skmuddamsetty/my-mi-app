@@ -79,7 +79,7 @@ export class AuthService {
   async onNativeGoogleLogin(): Promise<void> {
     // try {
     const gPlusUser = await this.googlePlus.login({
-      webClientId: '110606421758-awdaw.apps.googleusercontent.com',
+      webClientId: '110606421758-awda.apps.googleusercontent.com',
       offline: true
     });
     return await this.afAuth.auth

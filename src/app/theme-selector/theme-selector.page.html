@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title text-center> Theme Selector </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-button
+          expand="block"
+          color="medium"
+          (click)="changeTheme('autumn')"
+          >Yankee Blue</ion-button
+        >
+      </ion-col>
+      <ion-col>
+        <ion-button expand="block" color="medium" (click)="changeTheme('night')"
+          >Grey</ion-button
+        >
+      </ion-col>
+      <ion-col>
+        <ion-button
+          expand="block"
+          color="medium"
+          (click)="changeTheme('bluesapphire')"
+          >Blue Sapphire</ion-button
+        >
+      </ion-col>
+      <ion-col>
+        <ion-button
+          expand="block"
+          color="medium"
+          (click)="changeTheme('ashgrey')"
+          >Ash Grey</ion-button
+        >
+      </ion-col>
+      <ion-col>
+        <ion-button expand="block" color="medium" (click)="changeTheme('')"
+          >Default</ion-button
+        >
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

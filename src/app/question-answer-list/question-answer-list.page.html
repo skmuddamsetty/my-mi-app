@@ -10,7 +10,11 @@
 </ion-header>
 
 <ion-content padding>
-  <mat-spinner *ngIf="this.isLoading" style="margin:0 auto;"></mat-spinner>
+  <ion-spinner
+    *ngIf="this.isLoading"
+    style="margin:0 auto;"
+    name="bubbles"
+  ></ion-spinner>
   <div *ngIf="!this.isLoading">
     <mat-accordion
       multi="true"
