@@ -21,13 +21,13 @@
       class="example-headers-align"
       *ngFor="let item of (_qa | async)"
     >
-      <mat-expansion-panel>
+      <mat-expansion-panel [ngClass]="colorsObj.backgroundColor">
         <mat-expansion-panel-header
           collapsedHeight="*"
           expandedHeight="*"
           class="specific-class"
         >
-          <mat-panel-title>
+          <mat-panel-title [ngClass]="colorsObj.backgroundColor">
             {{ item.question }}
           </mat-panel-title>
         </mat-expansion-panel-header>

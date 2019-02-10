@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ThemeService } from '../theme.service';
+import { DataService } from '../data.service';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-theme-selector',
@@ -7,7 +9,11 @@ import { ThemeService } from '../theme.service';
   styleUrls: ['./theme-selector.page.scss']
 })
 export class ThemeSelectorPage {
-  constructor(private theme: ThemeService) {}
+  constructor(
+    private theme: ThemeService,
+    public dataService: DataService,
+    private storage: Storage
+  ) {}
   themes = {
     autumn: {
       primary: '#19647E',
@@ -53,5 +59,9 @@ export class ThemeSelectorPage {
 
   changeTheme(name) {
     this.theme.setTheme(this.themes[name]);
+    this.dataService.setColors({
+      backgroundColor: name
+    });
+    this.storage.set('backgroundColor', name);
   }
 }

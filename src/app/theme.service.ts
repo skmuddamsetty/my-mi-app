@@ -28,7 +28,7 @@ export class ThemeService {
     this.document.documentElement.style.setProperty(name, value);
   }
 
-  private setGlobalCSS(css: string) {
+  public setGlobalCSS(css: string) {
     this.document.documentElement.style.cssText = css;
   }
 

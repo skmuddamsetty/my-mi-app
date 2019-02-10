@@ -10,6 +10,7 @@ export class DataService {
   private _currentCategory: BehaviorSubject<{}> = new BehaviorSubject(
     new Object({})
   );
+  private _colorsObj: BehaviorSubject<{}> = new BehaviorSubject(new Object({}));
   constructor() {}
 
   getCurrentCategory() {
@@ -22,6 +23,14 @@ export class DataService {
       title: title
     };
     this._currentCategory.next(tempCategory);
+  }
+
+  getColors() {
+    return this._colorsObj.asObservable();
+  }
+
+  setColors(obj: any) {
+    this._colorsObj.next(obj);
   }
 
   getQAObservable() {

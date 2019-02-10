@@ -21,8 +21,10 @@ export class QuestionAnswerListPage implements OnInit, OnDestroy {
   currentCategory: any;
   qaArray: QA[];
   isLoading = false;
+  colorsObj: any;
   // LOCAL OBSERVABLE VARIABLES
   currentCategorySubScription: Subscription;
+  backgroundColorSubscription: Subscription;
   // FIREBASE RELATED VARIABLES
   private _qaCollection: AngularFirestoreCollection<QA>;
   _qa: Observable<QAId[]>;
@@ -36,6 +38,11 @@ export class QuestionAnswerListPage implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
+    this.backgroundColorSubscription = this.dataService
+      .getColors()
+      .subscribe(colorsObj => {
+        this.colorsObj = colorsObj;
+      });
     this.currentCategorySubScription = this.dataService
       .getCurrentCategory()
       .subscribe(currentCategory => {
@@ -82,10 +89,12 @@ export class QuestionAnswerListPage implements OnInit, OnDestroy {
         'currentCategorySubScription unsubscribe from QuestionAnswerListPage'
       );
     }
+    if (this.backgroundColorSubscription) {
+      this.backgroundColorSubscription.unsubscribe();
+    }
   }
 
   onFavorite(id: string) {
-    console.log(id);
     this.openLoginPage();
   }
 

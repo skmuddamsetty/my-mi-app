@@ -10,6 +10,8 @@ import { AuthService } from './auth.service';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
+import { Storage } from '@ionic/storage';
+import { ThemeService } from './theme.service';
 
 @Component({
   selector: 'app-root',
@@ -31,7 +33,9 @@ export class AppComponent {
     public authService: AuthService,
     private afAuth: AngularFireAuth,
     public router: Router,
-    private googlePlus: GooglePlus
+    private googlePlus: GooglePlus,
+    public storage: Storage,
+    public themeService: ThemeService
   ) {
     this.initializeApp();
     this.setAvailableItemsForSideNav();
@@ -50,6 +54,7 @@ export class AppComponent {
         }
       }
     });
+    this.restoreAppTheme(); // Restores the App Theme
   }
 
   initializeApp() {
@@ -99,5 +104,16 @@ export class AppComponent {
           }
         ]);
       });
+  }
+
+  restoreAppTheme() {
+    this.storage.get('theme').then(cssText => {
+      this.themeService.setGlobalCSS(cssText);
+    });
+    this.storage.get('backgroundColor').then(backgroundColor => {
+      this.dataService.setColors({
+        backgroundColor: backgroundColor
+      });
+    });
   }
 }
