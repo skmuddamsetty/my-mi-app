@@ -15,7 +15,7 @@ export class ThemeSelectorPage {
     private storage: Storage
   ) {}
   themes = {
-    autumn: {
+    yankeeblue: {
       primary: '#19647E',
       secondary: '#B4B8AB',
       tertiary: '#F4F9E9',
@@ -60,7 +60,8 @@ export class ThemeSelectorPage {
   changeTheme(name) {
     this.theme.setTheme(this.themes[name]);
     this.dataService.setColors({
-      backgroundColor: name
+      backgroundColor: name,
+      textColor: name + '-text'
     });
     this.storage.set('backgroundColor', name);
   }

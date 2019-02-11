@@ -23,5 +23,21 @@ ion-spinner {
 
 .ashgrey {
   background-color: #32332f;
-  color: #b4b8ab;
+  &-text {
+    color: #b4b8ab;
+  }
+}
+
+.night {
+  background: #bcc2c7;
+  &-text {
+    color: #495867;
+  }
+}
+
+.yankeeblue {
+  background: #eef0eb;
+  &-text {
+    color: #153243;
+  }
 }

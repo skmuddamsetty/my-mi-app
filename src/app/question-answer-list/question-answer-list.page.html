@@ -27,12 +27,13 @@
           expandedHeight="*"
           class="specific-class"
         >
-          <mat-panel-title [ngClass]="colorsObj.backgroundColor">
+          <mat-panel-title [ngClass]="colorsObj.textColor">
             {{ item.question }}
           </mat-panel-title>
         </mat-expansion-panel-header>
-
-        <div [innerHtml]="item.formattedAnswer" class="test"></div>
+        <div [ngClass]="colorsObj.textColor">
+          <div [innerHtml]="item.formattedAnswer"></div>
+        </div>
         <mat-action-row>
           <button mat-button>
             <mat-icon>share</mat-icon>
