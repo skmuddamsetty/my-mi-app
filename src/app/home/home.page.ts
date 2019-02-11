@@ -9,16 +9,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 })
 export class HomePage {
   constructor(private afs: AngularFirestore) {}
-  interview = [
-    {
-      question: 'Tell me about yourself',
-      answer: 'I am a Java Developer'
-    },
-    {
-      question: 'What was your role as a Java Developer?',
-      answer: 'I have written Java Programs'
-    }
-  ];
+
   array = [
     {
       title: 'Home',
