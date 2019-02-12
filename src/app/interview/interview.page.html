@@ -1,9 +1,35 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>interview</ion-title>
+    <ion-title>Interview</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-
+  <mat-accordion
+    multi="true"
+    class="example-headers-align"
+    *ngFor="let item of interviewArray"
+  >
+    <mat-expansion-panel [ngClass]="colorsObj.backgroundColor">
+      <mat-expansion-panel-header
+        collapsedHeight="*"
+        expandedHeight="*"
+        class="specific-class"
+      >
+        <mat-panel-title [ngClass]="colorsObj.textColor">
+          {{ item.question }}
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div [ngClass]="colorsObj.textColor">
+        <div [innerHtml]="item.answer"></div>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+  <ion-button
+    expand="block"
+    color="medium"
+    (click)="showNextQuestion()"
+    *ngIf="!endOfQuestions"
+    >Show More</ion-button
+  >
 </ion-content>

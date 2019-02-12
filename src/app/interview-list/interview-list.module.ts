@@ -5,20 +5,20 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { InterviewPage } from './interview.page';
+import { InterviewListPage } from './interview-list.page';
 import {
-  MatToolbarModule,
-  MatExpansionModule,
-  MatButtonModule,
-  MatButtonToggleModule,
+  MatProgressSpinnerModule,
   MatIconModule,
-  MatProgressSpinnerModule
+  MatButtonToggleModule,
+  MatButtonModule,
+  MatExpansionModule,
+  MatToolbarModule
 } from '@angular/material';
 
 const routes: Routes = [
   {
     path: '',
-    component: InterviewPage
+    component: InterviewListPage
   }
 ];
 
@@ -35,6 +35,6 @@ const routes: Routes = [
     MatIconModule,
     MatProgressSpinnerModule
   ],
-  declarations: [InterviewPage]
+  declarations: [InterviewListPage]
 })
-export class InterviewPageModule {}
+export class InterviewListPageModule {}

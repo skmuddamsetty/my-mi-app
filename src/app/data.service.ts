@@ -11,6 +11,8 @@ export class DataService {
     new Object({})
   );
   private _colorsObj: BehaviorSubject<{}> = new BehaviorSubject(new Object({}));
+  private _interviewIntents = new BehaviorSubject([]);
+
   constructor() {}
 
   getCurrentCategory() {
@@ -39,5 +41,13 @@ export class DataService {
 
   setQAArray(interviews: QA[]) {
     this._qa.next(interviews);
+  }
+
+  getInterviewIntents() {
+    return this._interviewIntents.asObservable();
+  }
+
+  setInterviewIntents(interviewIntents: any) {
+    this._interviewIntents.next(interviewIntents);
   }
 }

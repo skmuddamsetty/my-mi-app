@@ -26,7 +26,15 @@ const routes: Routes = [
     loadChildren:
       './theme-selector/theme-selector.module#ThemeSelectorPageModule'
   },
-  { path: 'interview', loadChildren: './interview/interview.module#InterviewPageModule' }
+  {
+    path: 'interview/:id',
+    loadChildren: './interview/interview.module#InterviewPageModule'
+  },
+  {
+    path: 'interview-list',
+    loadChildren:
+      './interview-list/interview-list.module#InterviewListPageModule'
+  }
 ];
 
 @NgModule({

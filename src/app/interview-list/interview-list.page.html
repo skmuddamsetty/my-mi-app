@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Interviews</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list lines="inset">
+    <div *ngFor="let item of interviewArrayFromDB">
+      <ion-item (click)="onItemClick(item.id, item.intents)">
+        <ion-icon slot="start" color="medium" name="color-fill"></ion-icon>
+        <ion-label>{{ item.title }}</ion-label>
+        <ion-icon slot="end" color="medium" name="arrow-forward"></ion-icon>
+      </ion-item>
+    </div>
+  </ion-list>
+</ion-content>

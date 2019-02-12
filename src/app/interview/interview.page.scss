@@ -1,0 +1,36 @@
+.ashgrey {
+  background-color: #32332f;
+  &-text {
+    color: #b4b8ab;
+  }
+}
+
+.night {
+  background: #bcc2c7;
+  &-text {
+    color: #495867;
+  }
+}
+
+.yankeeblue {
+  background: #eef0eb;
+  &-text {
+    color: #153243;
+  }
+}
+
+mat-expansion-panel {
+  mat-expanded {
+    mat-panel-title {
+      font-weight: bold;
+    }
+  }
+  margin-top: 1rem;
+  mat-panel-title {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+  mat-expansion-panel-header {
+    height: auto !important;
+  }
+}
