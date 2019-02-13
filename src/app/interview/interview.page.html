@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Interview</ion-title>
+    <ion-title text-center>Interview</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -21,7 +21,7 @@
         </mat-panel-title>
       </mat-expansion-panel-header>
       <div [ngClass]="colorsObj.textColor">
-        <div [innerHtml]="item.answer"></div>
+        <div [innerHtml]="item.formattedAnswer"></div>
       </div>
     </mat-expansion-panel>
   </mat-accordion>

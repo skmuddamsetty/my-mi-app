@@ -20,6 +20,7 @@ import { ThemeService } from './theme.service';
 export class AppComponent {
   public appPages = [];
   isAuthenticated = false;
+  shownGroup = null;
   // FIREBASE RELATED VARIABLES
   _sideNavSubscription: Subscription;
   _userSubscription: Subscription;
@@ -115,5 +116,17 @@ export class AppComponent {
         backgroundColor: backgroundColor
       });
     });
+  }
+
+  toggleGroup(group) {
+    if (this.isGroupShown(group)) {
+      this.shownGroup = null;
+    } else {
+      this.shownGroup = group;
+    }
+  }
+
+  isGroupShown(group) {
+    return this.shownGroup === group;
   }
 }
