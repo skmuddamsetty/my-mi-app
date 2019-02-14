@@ -24,9 +24,7 @@
                     (p.title === 'Login' && !this.isAuthenticated) ||
                     (p.title === 'Logout' && this.isAuthenticated))
                 "
-                (click)="
-                  setCurrentCategory(p.category, p.title); toggleGroup(i)
-                "
+                (click)="toggleGroup(i)"
               >
                 <ion-icon
                   slot="start"

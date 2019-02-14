@@ -63,7 +63,7 @@ export class QuestionAnswerListPage implements OnInit, OnDestroy {
           }
           if (this.category) {
             this.currentCategory = {
-              title: this.category
+              category: this.category
             };
             this._qaCollection = this.afs.collection<QA>('qa', ref => {
               return ref.where('tags', 'array-contains', this.category);
