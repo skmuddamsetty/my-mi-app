@@ -14,8 +14,12 @@
 *:not(ion-icon) {
   font-family: 'Merriweather', sans-serif;
 }
+
 .sub-pages {
   padding-left: 1rem;
+}
+.sub-pages-main-box {
+  cursor: pointer;
 }
 
 .mat-expansion-panel-content > .mat-expansion-panel-body {

@@ -8,8 +8,14 @@
       </ion-header>
       <ion-content>
         <ion-list>
-          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
-            <div *ngIf="p.subPages && p.subPages.length > 0">
+          <ion-menu-toggle
+            auto-hide="false"
+            *ngFor="let p of appPages; let i = index"
+          >
+            <div
+              *ngIf="p.subPages && p.subPages.length > 0"
+              class="sub-pages-main-box"
+            >
               <ion-item
                 *ngIf="
                   p.dynamicRoute &&
@@ -18,9 +24,9 @@
                     (p.title === 'Login' && !this.isAuthenticated) ||
                     (p.title === 'Logout' && this.isAuthenticated))
                 "
-                [routerDirection]="'root'"
-                [routerLink]="[p.url, p.category]"
-                (click)="setCurrentCategory(p.category, p.title)"
+                (click)="
+                  setCurrentCategory(p.category, p.title); toggleGroup(i)
+                "
               >
                 <ion-icon
                   slot="start"
@@ -30,35 +36,45 @@
                 <ion-label>
                   {{ p.title }}
                 </ion-label>
-                <ion-badge
-                  color="light"
+                <ion-icon
                   slot="end"
-                  *ngIf="p.numberofQuestions && p.numberofQuestions > 0"
-                  >{{ p.numberofQuestions }}</ion-badge
-                >
+                  name="arrow-dropdown"
+                  color="medium"
+                  *ngIf="!isGroupShown(i)"
+                ></ion-icon>
+                <ion-icon
+                  slot="end"
+                  name="arrow-dropup"
+                  color="medium"
+                  *ngIf="isGroupShown(i)"
+                ></ion-icon>
               </ion-item>
-              <div class="sub-pages" *ngFor="let item of p.subPages">
-                <ion-item
-                  *ngIf="item.isAvailable"
-                  [routerDirection]="'root'"
-                  [routerLink]="[item.url, item.category]"
-                  (click)="setCurrentCategory(item.category, item.title)"
-                >
-                  <ion-icon
-                    slot="start"
-                    [name]="item.icon"
-                    color="medium"
-                  ></ion-icon>
-                  <ion-label>
-                    {{ item.title }}
-                  </ion-label>
-                  <ion-badge
-                    color="light"
-                    slot="end"
-                    *ngIf="item.numberofQuestions && item.numberofQuestions > 0"
-                    >{{ item.numberofQuestions }}</ion-badge
+              <div *ngIf="isGroupShown(i)">
+                <div class="sub-pages" *ngFor="let item of p.subPages">
+                  <ion-item
+                    *ngIf="item.isAvailable"
+                    [routerDirection]="'root'"
+                    [routerLink]="[item.url, item.category]"
+                    (click)="setCurrentCategory(item.category, item.title)"
                   >
-                </ion-item>
+                    <ion-icon
+                      slot="start"
+                      [name]="item.icon"
+                      color="medium"
+                    ></ion-icon>
+                    <ion-label>
+                      {{ item.title }}
+                    </ion-label>
+                    <ion-badge
+                      color="light"
+                      slot="end"
+                      *ngIf="
+                        item.numberofQuestions && item.numberofQuestions > 0
+                      "
+                      >{{ item.numberofQuestions }}</ion-badge
+                    >
+                  </ion-item>
+                </div>
               </div>
             </div>
             <div *ngIf="p.subPages && p.subPages.length <= 0">
