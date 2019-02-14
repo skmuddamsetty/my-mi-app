@@ -1,16 +1,31 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Interviews</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title text-center>
+      {{ this.category | titlecase }} Interviews
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-  <ion-list lines="inset">
-    <div *ngFor="let item of interviewArrayFromDB">
-      <ion-item (click)="onItemClick(item.id, item.intents)">
-        <ion-label>{{ item.title }}</ion-label>
-        <ion-icon slot="end" color="medium" name="arrow-forward"></ion-icon>
-      </ion-item>
-    </div>
-  </ion-list>
+  <ion-spinner
+    *ngIf="this.isLoading"
+    style="margin:0 auto;"
+    name="bubbles"
+  ></ion-spinner>
+  <div *ngIf="!this.isLoading">
+    <ion-list lines="inset" *ngIf="interviewArray && interviewArray.length > 0">
+      <div *ngFor="let item of interviewArray">
+        <ion-item (click)="onItemClick(item.id, item.intents)">
+          <ion-label>{{ item.title }}</ion-label>
+          <ion-icon slot="end" color="medium" name="arrow-forward"></ion-icon>
+        </ion-item>
+      </div>
+    </ion-list>
+    <p text-center *ngIf="!interviewArray || interviewArray.length <= 0">
+      No Interviews added yet!
+    </p>
+  </div>
 </ion-content>

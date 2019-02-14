@@ -9,52 +9,114 @@
       <ion-content>
         <ion-list>
           <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
-            <ion-item
-              *ngIf="
-                p.dynamicRoute &&
-                p.isAvailable &&
-                ((p.title !== 'Login' && p.title !== 'Logout') ||
-                  (p.title === 'Login' && !this.isAuthenticated) ||
-                  (p.title === 'Logout' && this.isAuthenticated))
-              "
-              [routerDirection]="'root'"
-              [routerLink]="[p.url, p.category]"
-              (click)="setCurrentCategory(p.category, p.title)"
-            >
-              <ion-icon slot="start" [name]="p.icon" color="medium"></ion-icon>
-              <ion-label>
-                {{ p.title }}
-              </ion-label>
-              <ion-badge
-                color="light"
-                slot="end"
-                *ngIf="p.numberofQuestions && p.numberofQuestions > 0"
-                >{{ p.numberofQuestions }}</ion-badge
+            <div *ngIf="p.subPages && p.subPages.length > 0">
+              <ion-item
+                *ngIf="
+                  p.dynamicRoute &&
+                  p.isAvailable &&
+                  ((p.title !== 'Login' && p.title !== 'Logout') ||
+                    (p.title === 'Login' && !this.isAuthenticated) ||
+                    (p.title === 'Logout' && this.isAuthenticated))
+                "
+                [routerDirection]="'root'"
+                [routerLink]="[p.url, p.category]"
+                (click)="setCurrentCategory(p.category, p.title)"
               >
-            </ion-item>
-            <ion-item
-              *ngIf="
-                !p.dynamicRoute &&
-                p.isAvailable &&
-                ((p.title !== 'Login' && p.title !== 'Logout') ||
-                  (p.title === 'Login' && !this.isAuthenticated) ||
-                  (p.title === 'Logout' && this.isAuthenticated))
-              "
-              [routerDirection]="'root'"
-              [routerLink]="[p.url]"
-              (click)="setCurrentCategory(p.category, p.title)"
-            >
-              <ion-icon slot="start" [name]="p.icon" color="medium"></ion-icon>
-              <ion-label>
-                {{ p.title }}
-              </ion-label>
-              <ion-badge
-                color="light"
-                slot="end"
-                *ngIf="p.numberofQuestions && p.numberofQuestions > 0"
-                >{{ p.numberofQuestions }}</ion-badge
+                <ion-icon
+                  slot="start"
+                  [name]="p.icon"
+                  color="medium"
+                ></ion-icon>
+                <ion-label>
+                  {{ p.title }}
+                </ion-label>
+                <ion-badge
+                  color="light"
+                  slot="end"
+                  *ngIf="p.numberofQuestions && p.numberofQuestions > 0"
+                  >{{ p.numberofQuestions }}</ion-badge
+                >
+              </ion-item>
+              <div class="sub-pages" *ngFor="let item of p.subPages">
+                <ion-item
+                  *ngIf="item.isAvailable"
+                  [routerDirection]="'root'"
+                  [routerLink]="[item.url, item.category]"
+                  (click)="setCurrentCategory(item.category, item.title)"
+                >
+                  <ion-icon
+                    slot="start"
+                    [name]="item.icon"
+                    color="medium"
+                  ></ion-icon>
+                  <ion-label>
+                    {{ item.title }}
+                  </ion-label>
+                  <ion-badge
+                    color="light"
+                    slot="end"
+                    *ngIf="item.numberofQuestions && item.numberofQuestions > 0"
+                    >{{ item.numberofQuestions }}</ion-badge
+                  >
+                </ion-item>
+              </div>
+            </div>
+            <div *ngIf="p.subPages && p.subPages.length <= 0">
+              <ion-item
+                *ngIf="
+                  p.dynamicRoute &&
+                  p.isAvailable &&
+                  ((p.title !== 'Login' && p.title !== 'Logout') ||
+                    (p.title === 'Login' && !this.isAuthenticated) ||
+                    (p.title === 'Logout' && this.isAuthenticated))
+                "
+                [routerDirection]="'root'"
+                [routerLink]="[p.url, p.category]"
+                (click)="setCurrentCategory(p.category, p.title)"
               >
-            </ion-item>
+                <ion-icon
+                  slot="start"
+                  [name]="p.icon"
+                  color="medium"
+                ></ion-icon>
+                <ion-label>
+                  {{ p.title }}
+                </ion-label>
+                <ion-badge
+                  color="light"
+                  slot="end"
+                  *ngIf="p.numberofQuestions && p.numberofQuestions > 0"
+                  >{{ p.numberofQuestions }}</ion-badge
+                >
+              </ion-item>
+              <ion-item
+                *ngIf="
+                  !p.dynamicRoute &&
+                  p.isAvailable &&
+                  ((p.title !== 'Login' && p.title !== 'Logout') ||
+                    (p.title === 'Login' && !this.isAuthenticated) ||
+                    (p.title === 'Logout' && this.isAuthenticated))
+                "
+                [routerDirection]="'root'"
+                [routerLink]="[p.url]"
+                (click)="setCurrentCategory(p.category, p.title)"
+              >
+                <ion-icon
+                  slot="start"
+                  [name]="p.icon"
+                  color="medium"
+                ></ion-icon>
+                <ion-label>
+                  {{ p.title }}
+                </ion-label>
+                <ion-badge
+                  color="light"
+                  slot="end"
+                  *ngIf="p.numberofQuestions && p.numberofQuestions > 0"
+                  >{{ p.numberofQuestions }}</ion-badge
+                >
+              </ion-item>
+            </div>
           </ion-menu-toggle>
         </ion-list>
       </ion-content>

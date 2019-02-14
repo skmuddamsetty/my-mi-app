@@ -31,7 +31,7 @@ const routes: Routes = [
     loadChildren: './interview/interview.module#InterviewPageModule'
   },
   {
-    path: 'interview-list',
+    path: 'interviews/:category',
     loadChildren:
       './interview-list/interview-list.module#InterviewListPageModule'
   }

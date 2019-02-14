@@ -7,6 +7,7 @@ import { QA } from './models/qa.model';
 })
 export class DataService {
   private _qa = new BehaviorSubject([]);
+  private _interviewList = new BehaviorSubject([]);
   private _currentCategory: BehaviorSubject<{}> = new BehaviorSubject(
     new Object({})
   );
@@ -49,5 +50,13 @@ export class DataService {
 
   setInterviewIntents(interviewIntents: any) {
     this._interviewIntents.next(interviewIntents);
+  }
+
+  getInterviewListObservable() {
+    return this._interviewList.asObservable();
+  }
+
+  setInterviewListArray(interviewArray: any) {
+    this._interviewList.next(interviewArray);
   }
 }
