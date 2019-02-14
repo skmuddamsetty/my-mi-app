@@ -9,7 +9,11 @@
 @import '~@ionic/angular/css/text-alignment.css';
 @import '~@ionic/angular/css/text-transformation.css';
 @import '~@ionic/angular/css/flex-utils.css';
+@import url(https://fonts.googleapis.com/css?family=Merriweather:400:700);
 
+*:not(ion-icon) {
+  font-family: 'Merriweather', sans-serif;
+}
 .sub-pages {
   padding-left: 1rem;
 }

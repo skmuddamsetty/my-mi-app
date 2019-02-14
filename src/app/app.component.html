@@ -11,6 +11,7 @@
           <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
             <ion-item
               *ngIf="
+                p.dynamicRoute &&
                 p.isAvailable &&
                 ((p.title !== 'Login' && p.title !== 'Logout') ||
                   (p.title === 'Login' && !this.isAuthenticated) ||
@@ -18,6 +19,29 @@
               "
               [routerDirection]="'root'"
               [routerLink]="[p.url, p.category]"
+              (click)="setCurrentCategory(p.category, p.title)"
+            >
+              <ion-icon slot="start" [name]="p.icon" color="medium"></ion-icon>
+              <ion-label>
+                {{ p.title }}
+              </ion-label>
+              <ion-badge
+                color="light"
+                slot="end"
+                *ngIf="p.numberofQuestions && p.numberofQuestions > 0"
+                >{{ p.numberofQuestions }}</ion-badge
+              >
+            </ion-item>
+            <ion-item
+              *ngIf="
+                !p.dynamicRoute &&
+                p.isAvailable &&
+                ((p.title !== 'Login' && p.title !== 'Logout') ||
+                  (p.title === 'Login' && !this.isAuthenticated) ||
+                  (p.title === 'Logout' && this.isAuthenticated))
+              "
+              [routerDirection]="'root'"
+              [routerLink]="[p.url]"
               (click)="setCurrentCategory(p.category, p.title)"
             >
               <ion-icon slot="start" [name]="p.icon" color="medium"></ion-icon>
