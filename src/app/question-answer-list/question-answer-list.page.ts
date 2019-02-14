@@ -9,7 +9,7 @@ import { QA, QAId } from '../models/qa.model';
 import { map } from 'rxjs/operators';
 import { LoginPage } from '../login/login.page';
 import { ModalController } from '@ionic/angular';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
   selector: 'app-question-answer-list',
@@ -19,6 +19,7 @@ import { Router } from '@angular/router';
 export class QuestionAnswerListPage implements OnInit, OnDestroy {
   // LOCAL VARIABLES
   currentCategory: any;
+  category: string;
   qaArray: QA[];
   isLoading = false;
   colorsObj: any;
@@ -29,69 +30,79 @@ export class QuestionAnswerListPage implements OnInit, OnDestroy {
   private _qaCollection: AngularFirestoreCollection<QA>;
   _qa: Observable<QAId[]>;
   _qaSubscription: Subscription;
+  private allSubscriptions: Subscription[] = [];
 
   constructor(
     public dataService: DataService,
     private readonly afs: AngularFirestore,
     private modalCtrl: ModalController,
-    public router: Router
+    public router: Router,
+    public route: ActivatedRoute
   ) {}
 
   ngOnInit() {
-    this.backgroundColorSubscription = this.dataService
-      .getColors()
-      .subscribe(colorsObj => {
+    this._qa = this.dataService.getQAObservable();
+    this.allSubscriptions.push(
+      this.dataService.getColors().subscribe(colorsObj => {
         this.colorsObj = colorsObj;
-      });
-    this.currentCategorySubScription = this.dataService
-      .getCurrentCategory()
-      .subscribe(currentCategory => {
-        this.isLoading = true;
+      })
+    );
+    this.allSubscriptions.push(
+      this.dataService.getCurrentCategory().subscribe(currentCategory => {
         this.currentCategory = currentCategory;
-        this._qa = this.dataService.getQAObservable();
-        if (!this.currentCategory.category) {
-          this.router.navigate(['/home']);
-          return;
-        }
-        if (this.currentCategory.category) {
-          this._qaCollection = this.afs.collection<QA>('qa', ref => {
-            return ref.where(
-              'tags',
-              'array-contains',
-              this.currentCategory.category
-            );
-          });
-          this._qaSubscription = this._qaCollection
-            .snapshotChanges()
-            .pipe(
-              map(actions => {
-                this.qaArray = actions.map(a => {
-                  const data = a.payload.doc.data() as QA;
-                  const id = a.payload.doc.id;
-                  return { id, ...data };
-                });
-              })
-            )
-            .subscribe(res => {
-              console.log(this.qaArray);
-              this.dataService.setQAArray(this.qaArray);
-              this._qaSubscription.unsubscribe();
-              this.isLoading = false;
+      })
+    );
+    this.allSubscriptions.push(
+      this.route.paramMap.subscribe((paramMap: ParamMap) => {
+        this.isLoading = true;
+        if (paramMap.has('category')) {
+          this.category = paramMap.get('category');
+          if (!this.category) {
+            this.router.navigate(['/home']);
+            return;
+          }
+          if (this.category) {
+            this.currentCategory = {
+              title: this.category
+            };
+            this._qaCollection = this.afs.collection<QA>('qa', ref => {
+              return ref.where('tags', 'array-contains', this.category);
             });
+            this._qaSubscription = this._qaCollection
+              .snapshotChanges()
+              .pipe(
+                map(actions => {
+                  this.qaArray = actions.map(a => {
+                    const data = a.payload.doc.data() as QA;
+                    const id = a.payload.doc.id;
+                    return { id, ...data };
+                  });
+                })
+              )
+              .subscribe(res => {
+                console.log(this.qaArray);
+                this.dataService.setQAArray(this.qaArray);
+                this._qaSubscription.unsubscribe();
+                this.isLoading = false;
+              });
+            this.allSubscriptions.push(this._qaSubscription);
+          }
         }
-      });
+      })
+    );
+  }
+
+  unSubscribeFromSubscriptions() {
+    this.allSubscriptions.forEach(sub => {
+      if (sub) {
+        sub.unsubscribe();
+      }
+      console.log('unsub');
+    });
   }
 
   ngOnDestroy() {
-    if (this.currentCategorySubScription) {
-      this.currentCategorySubScription.unsubscribe();
-      console.log(
-        'currentCategorySubScription unsubscribe from QuestionAnswerListPage'
-      );
-    }
-    if (this.backgroundColorSubscription) {
-      this.backgroundColorSubscription.unsubscribe();
-    }
+    this.unSubscribeFromSubscriptions();
   }
 
   onFavorite(id: string) {

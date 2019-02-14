@@ -1,11 +1,7 @@
 import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
-import { Subscription, Observable } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { DataService } from '../data.service';
-import { map } from 'rxjs/operators';
-import {
-  AngularFirestoreCollection,
-  AngularFirestore
-} from '@angular/fire/firestore';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { ParamMap, ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -16,6 +12,7 @@ import { ParamMap, ActivatedRoute } from '@angular/router';
 export class InterviewPage implements OnInit, OnDestroy {
   colorsObj: any;
   interviewArrayFromDB = [];
+  sortedInterviewArray = [];
   interviewArray = [];
   count = 0;
   endOfQuestions = false;
@@ -41,8 +38,12 @@ export class InterviewPage implements OnInit, OnDestroy {
     this.allSubscriptions.push(
       this.dataService.getInterviewIntents().subscribe(interviewIntents => {
         this.interviewArrayFromDB = interviewIntents;
-        if (this.interviewArrayFromDB.length > 0) {
-          this.interviewArray.push(this.interviewArrayFromDB[this.count]);
+        this.sortedInterviewArray = this.interviewArrayFromDB.slice(0);
+        this.sortedInterviewArray.sort(function(a, b) {
+          return a.no - b.no;
+        });
+        if (this.sortedInterviewArray.length > 0) {
+          this.interviewArray.push(this.sortedInterviewArray[this.count]);
         }
         if (this.interviewArray.length <= 0) {
           this.allSubscriptions.push(
@@ -56,8 +57,14 @@ export class InterviewPage implements OnInit, OnDestroy {
                     .subscribe(interview => {
                       this.interviewArrayFromDB = interview.intents;
                       if (this.interviewArrayFromDB.length > 0) {
+                        this.sortedInterviewArray = this.interviewArrayFromDB.slice(
+                          0
+                        );
+                        this.sortedInterviewArray.sort(function(a, b) {
+                          return a.no - b.no;
+                        });
                         this.interviewArray.push(
-                          this.interviewArrayFromDB[this.count]
+                          this.sortedInterviewArray[this.count]
                         );
                       }
                       if (this._interviewSubscription) {
@@ -75,11 +82,11 @@ export class InterviewPage implements OnInit, OnDestroy {
 
   showNextQuestion() {
     this.count++;
-    if (this.count >= this.interviewArrayFromDB.length) {
+    if (this.count >= this.sortedInterviewArray.length) {
       this.endOfQuestions = true;
       return;
     }
-    this.interviewArray.push(this.interviewArrayFromDB[this.count]);
+    this.interviewArray.push(this.sortedInterviewArray[this.count]);
   }
 
   unSubscribeFromSubscriptions() {

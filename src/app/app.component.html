@@ -17,7 +17,7 @@
                   (p.title === 'Logout' && this.isAuthenticated))
               "
               [routerDirection]="'root'"
-              [routerLink]="[p.url]"
+              [routerLink]="[p.url, p.category]"
               (click)="setCurrentCategory(p.category, p.title)"
             >
               <ion-icon slot="start" [name]="p.icon" color="medium"></ion-icon>

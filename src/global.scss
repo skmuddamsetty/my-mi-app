@@ -13,3 +13,86 @@
 .sub-pages {
   padding-left: 1rem;
 }
+
+.mat-expansion-panel-content > .mat-expansion-panel-body {
+  .list-sub-heading {
+    font-weight: bold;
+  }
+  //Styling for ordered Lists
+  ol {
+    counter-reset: li; /* Initiate a counter */
+    list-style: none; /* Remove default numbering */
+    *list-style: decimal; /* Keep using default numbering for IE6/7 */
+    margin-bottom: 4em;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+  }
+
+  ol ol {
+    margin: 0 0 0 2em; /* Add some left margin for inner lists */
+  }
+
+  .rounded-list p {
+    position: relative;
+    display: block;
+    padding: 0.4em 0.4em 0.4em 2em;
+    *padding: 0.4em;
+    margin: 0.5em 0;
+    background: #ddd;
+    color: #444;
+    text-decoration: none;
+    border-radius: 0.3em;
+    transition: all 0.3s ease-out;
+  }
+
+  .rounded-list p:hover {
+    background: #eee;
+  }
+
+  .rounded-list p:hover:before {
+    // transform: rotate(360deg);
+  }
+
+  .rounded-list p:before {
+    content: counter(li);
+    counter-increment: li;
+    position: absolute;
+    left: -1.3em;
+    top: 50%;
+    margin-top: -1.3em;
+    background: #87ceeb;
+    height: 2em;
+    width: 2em;
+    line-height: 2em;
+    border: 0.3em solid #fff;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 2em;
+    transition: all 0.3s ease-out;
+  }
+  pre {
+    font-family: monospace;
+    background-color: #fff;
+    width: em(440);
+    margin: 4em auto;
+    padding: 0.5em;
+    border-radius: 0.25em;
+    box-shadow: 0.1em 0.1em 0.5em rgba(0, 0, 0, 0.45);
+    line-height: 0;
+    counter-reset: line;
+
+    span {
+      display: block;
+      line-height: 1.5rem;
+
+      &:before {
+        counter-increment: line;
+        content: counter(line);
+        display: inline-block;
+        border-right: 1px solid #ddd;
+        padding: 0 0.5em;
+        margin-right: 0.5em;
+        color: #888;
+      }
+    }
+  }
+}

@@ -8,11 +8,11 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'home',
+    path: 'home/home',
     loadChildren: './home/home.module#HomePageModule'
   },
   {
-    path: 'question-answer-list',
+    path: 'questions/:category',
     loadChildren:
       './question-answer-list/question-answer-list.module#QuestionAnswerListPageModule'
   },
